@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Careers | Meditech Mfg</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="icon" type="image/png" href="favicon.png">
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .job-card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            padding: 25px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: var(--transition);
+        }
+
+        .job-card:hover {
+            border-color: var(--primary-color);
+            transform: scale(1.01);
+        }
+
+        .job-tag {
+            background-color: var(--section-bg);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="header-placeholder"></div>
+
+    <main>
+        <!-- Hero -->
+        <section class="section"
+            style="background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?auto=format&fit=crop&w=1200&q=80'); background-size: cover; background-position: center; color: white; min-height: 50vh; display: flex; align-items: center; text-align: center;">
+            <div class="container hero-content">
+                <h1 class="scale-up" style="color: white;">Shape the Future of Healthcare</h1>
+                <p class="scale-up">Join a team of visionaries, engineers, and clinical experts dedicated to creating
+                    life-saving technology.</p>
+                <a href="#openings" class="btn btn-primary mt-20">View Open Positions</a>
+            </div>
+        </section>
+
+        <!-- Why Join Us -->
+        <section class="section">
+            <div class="container">
+                <div class="section-title reveal">
+                    <h2>Life at Meditech</h2>
+                    <p>We foster a culture of innovation, precision, and purpose.</p>
+                </div>
+
+                <div class="card-grid">
+                    <div class="card reveal" style="padding: 30px;">
+                        <i class="fas fa-microscope fa-3x mb-20" style="color: var(--primary-color);"></i>
+                        <h3>Cutting-Edge Tech</h3>
+                        <p>Work with the latest in robotics, AI, and material science. We invest heavily in our labs and
+                            production infrastructure.</p>
+                    </div>
+                    <div class="card reveal" style="padding: 30px; transition-delay: 0.1s;">
+                        <i class="fas fa-heartbeat fa-3x mb-20" style="color: var(--primary-color);"></i>
+                        <h3>Purposeful Work</h3>
+                        <p>Every device you help engineer or manufacture will play a critical role in saving lives or
+                            improving patient quality of life.</p>
+                    </div>
+                    <div class="card reveal" style="padding: 30px; transition-delay: 0.2s;">
+                        <i class="fas fa-graduation-cap fa-3x mb-20" style="color: var(--primary-color);"></i>
+                        <h3>Continuous Growth</h3>
+                        <p>We offer extensive training programs, certification support, and clear pathways for career
+                            advancement.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Open Positions -->
+        <section id="openings" class="section" style="background-color: var(--section-bg);">
+            <div class="container">
+                <div class="section-title reveal">
+                    <h2>Currently Open Roles</h2>
+                    <p>Find your place in our growing global team.</p>
+                </div>
+
+                <div style="max-width: 800px; margin: 0 auto;">
+                    <!-- Job 1 -->
+                    <div class="job-card reveal">
+                        <div>
+                            <span class="job-tag">Engineering</span>
+                            <h3 class="mt-10">Clinical Support Engineer</h3>
+                            <p style="color: var(--text-muted);"><i class="fas fa-map-marker-alt"></i> Boston, MA |
+                                Full-time</p>
+                        </div>
+                        <button class="btn btn-outline">Apply Now</button>
+                    </div>
+                    <!-- Job 2 -->
+                    <div class="job-card reveal" style="transition-delay: 0.1s;">
+                        <div>
+                            <span class="job-tag">Manufacturing</span>
+                            <h3 class="mt-10">Quality Control Specialist</h3>
+                            <p style="color: var(--text-muted);"><i class="fas fa-map-marker-alt"></i> Austin, TX |
+                                Full-time</p>
+                        </div>
+                        <button class="btn btn-outline">Apply Now</button>
+                    </div>
+                    <!-- Job 3 -->
+                    <div class="job-card reveal" style="transition-delay: 0.2s;">
+                        <div>
+                            <span class="job-tag">Research</span>
+                            <h3 class="mt-10">Senior Material Scientist</h3>
+                            <p style="color: var(--text-muted);"><i class="fas fa-map-marker-alt"></i> Remote / Hybrid |
+                                Full-time</p>
+                        </div>
+                        <button class="btn btn-outline">Apply Now</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <div id="footer-placeholder"></div>
+    <script src="js/main.js"></script>
+</body>
+
+</html>

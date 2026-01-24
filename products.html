@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Catalog | Meditech Mfg</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="icon" type="image/png" href="favicon.png">
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .filter-tabs {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .tab {
+            padding: 10px 25px;
+            border-radius: 30px;
+            border: 1px solid var(--border-color);
+            cursor: pointer;
+            font-weight: 500;
+        }
+
+        .tab.active {
+            background-color: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+        }
+
+        .badge-restricted {
+            background-color: #ff9800;
+            color: white;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="header-placeholder"></div>
+
+    <main>
+        <section class="section">
+            <div class="container">
+                <div class="section-title reveal">
+                    <h1>Product Catalog</h1>
+                    <p>Meditech Mfg provides a comprehensive portfolio of high-precision medical devices engineered for
+                        the most demanding clinical environments. Our products are categorized by medical specialty,
+                        ensuring that healthcare providers can easily find the specific tools required for patient care,
+                        from routine diagnostics to complex surgical interventions.</p>
+                </div>
+
+                <!-- 1. Product Categories -->
+                <div class="filter-tabs reveal">
+                    <div class="tab active">All</div>
+                    <div class="tab">Surgical</div>
+                    <div class="tab">Orthopedic</div>
+                    <div class="tab">Cardiovascular</div>
+                    <div class="tab">Diagnostic</div>
+                </div>
+
+                <!-- 2. Individual Product Listings -->
+                <div class="card-grid">
+                    <div class="card reveal">
+                        <div class="card-img"
+                            style="background-image: url('https://images.pexels.com/photos/6291088/pexels-photo-6291088.jpeg');">
+                        </div>
+                        <div class="card-body">
+                            <h3>Micro-Forceps Series-G</h3>
+                            <p>Our Micro-Forceps Series-G is designed for delicate microsurgery, providing surgeons with
+                                unparalleled tactile feedback and grip precision. Manufactured from high-tensile 316L
+                                stainless steel, these instruments are resistant to repeated sterilization cycles
+                                without losing their structural integrity.</p>
+
+                            <!-- 3. Product Specifications (Restricted) -->
+                            <div class="public-only mt-20">
+                                <p style="color: var(--secondary-color); font-size: 0.9rem;"><i class="fas fa-lock"></i>
+                                    Login to view technical specifications</p>
+                                <a href="distributor-login.html" class="btn btn-outline"
+                                    style="width: 100%; text-align: center;">Login for Specs</a>
+                            </div>
+                            <div class="distributor-only mt-20">
+                                <span class="badge-restricted">Distributor Only</span>
+                                <ul style="font-size: 0.9rem;" class="mt-20">
+                                    <li>Material: Grade 316L SS</li>
+                                    <li>Tip Size: 0.15mm</li>
+                                    <li>Bulk Price: $450/unit</li>
+                                </ul>
+                                <button class="btn btn-primary mt-20" style="width: 100%;">Order Prototype</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card reveal" style="transition-delay: 0.1s;">
+                        <div class="card-img"
+                            style="background-image: url('https://images.unsplash.com/photo-1485081669829-bacb8c7bb1f3?auto=format&fit=crop&w=800&q=80');">
+                        </div>
+                        <div class="card-body">
+                            <h3>Laser Scalpel X1</h3>
+                            <p>The X1 Laser Scalpel represents a breakthrough in thermal tissue management. By utilizing
+                                precise wavelength control, it minimizes collateral tissue damage and reduces operative
+                                time, making it an essential tool for oncology and neurosurgery departments worldwide.
+                            </p>
+
+                            <div class="public-only mt-20">
+                                <p style="color: var(--secondary-color); font-size: 0.9rem;"><i class="fas fa-lock"></i>
+                                    Login to view technical specifications</p>
+                                <a href="distributor-login.html" class="btn btn-outline"
+                                    style="width: 100%; text-align: center;">Login for Specs</a>
+                            </div>
+                            <div class="distributor-only mt-20">
+                                <span class="badge-restricted">Distributor Only</span>
+                                <ul style="font-size: 0.9rem;" class="mt-20">
+                                    <li>Power: 50W Fiber Laser</li>
+                                    <li>Cooling: Air-Cooled</li>
+                                    <li>Bulk Price: $12,000/unit</li>
+                                </ul>
+                                <button class="btn btn-primary mt-20" style="width: 100%;">Order Prototype</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card reveal" style="transition-delay: 0.2s;">
+                        <div class="card-img"
+                            style="background-image: url('https://images.pexels.com/photos/7089021/pexels-photo-7089021.jpeg');">
+                        </div>
+                        <div class="card-body">
+                            <h3>Smart Monitor V5</h3>
+                            <p>The Smart Monitor V5 integrates hospital-wide telemetry with patient-specific
+                                diagnostics. Featuring advanced AI monitoring for vital signs, it provides clinical
+                                staff with predictive alerts, substantially reducing response times for critical care
+                                events.</p>
+
+                            <div class="public-only mt-20">
+                                <p style="color: var(--secondary-color); font-size: 0.9rem;"><i class="fas fa-lock"></i>
+                                    Login to view technical specifications</p>
+                                <a href="distributor-login.html" class="btn btn-outline"
+                                    style="width: 100%; text-align: center;">Login for Specs</a>
+                            </div>
+                            <div class="distributor-only mt-20">
+                                <span class="badge-restricted">Distributor Only</span>
+                                <ul style="font-size: 0.9rem;" class="mt-20">
+                                    <li>OS: MediOS v2.1</li>
+                                    <li>Battery: 12hr Standby</li>
+                                    <li>Bulk Price: $3,200/unit</li>
+                                </ul>
+                                <button class="btn btn-primary mt-20" style="width: 100%;">Order Prototype</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 4. Certifications & Documents -->
+                <div class="section reveal">
+                    <div class="section-title">
+                        <h2>Compliance Documents</h2>
+                        <p>Transparency and regulatory adherence are vital for trust in medical manufacturing. We
+                            provide full access to our certification and sterility documentation, allowing distributors
+                            and healthcare procurement officers to verify the technical and safety standards of every
+                            Meditech product.</p>
+                    </div>
+                    <div class="card" style="padding: 20px;">
+                        <ul class="footer-links">
+                            <li><i class="fas fa-file-pdf"></i> ISO 13485 Certificate (2024-2027) - <a href="#"
+                                    style="color: var(--primary-color);">Download</a></li>
+                            <li><i class="fas fa-file-pdf"></i> EU Medical Device Regulation (MDR) Compliance - <a
+                                    href="#" style="color: var(--primary-color);">Download</a></li>
+                            <li><i class="fas fa-file-pdf"></i> Sterility Assurance Documentation - <a href="#"
+                                    style="color: var(--primary-color);">Download</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- 5. Product Inquiry CTA -->
+                <div class="section text-center reveal">
+                    <h2>Can't find what you're looking for?</h2>
+                    <p class="mb-20">We offer custom manufacturing for specialized medical needs.</p>
+                    <a href="contact.html" class="btn btn-primary">Submit Inquiry</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <div id="footer-placeholder"></div>
+    <script src="js/main.js"></script>
+</body>
+
+</html>

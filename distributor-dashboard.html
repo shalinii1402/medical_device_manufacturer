@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Distributor Dashboard | Meditech Mfg</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: 280px 1fr;
+            min-height: 80vh;
+            gap: 30px;
+        }
+
+        .sidebar {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 15px;
+            padding: 25px;
+            height: fit-content;
+            position: sticky;
+            top: 100px;
+        }
+
+        .sidebar li {
+            padding: 12px 15px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: var(--transition);
+            margin-bottom: 5px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-weight: 500;
+        }
+
+        .sidebar li:hover,
+        .sidebar li.active {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .db-card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 25px;
+        }
+
+        .stat-banner {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .stat-item {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            padding: 20px;
+            border-radius: 12px;
+            text-align: center;
+        }
+
+        .stat-item h3 {
+            font-size: 1.8rem;
+            color: var(--primary-color);
+        }
+
+        .stat-item p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: 5px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="header-placeholder"></div>
+
+    <main class="container py-40" style="padding-top: 50px; padding-bottom: 50px;">
+        <div class="dashboard-grid">
+            <aside class="sidebar reveal">
+                <div
+                    style="display: flex; align-items: center; gap: 15px; margin-bottom: 30px; padding-bottom: 20px; border-bottom: 1px solid var(--border-color);">
+                    <i class="fas fa-user-circle fa-3x" style="color: var(--primary-color);"></i>
+                    <div>
+                        <h4 style="font-size: 1rem;">Global Health Solutions</h4>
+                        <p style="font-size: 0.8rem; color: var(--text-muted);">Partner Tier: Gold</p>
+                    </div>
+                </div>
+                <ul id="distributor-menu">
+                    <li class="active" data-section="overview"><i class="fas fa-th-large"></i> Overview</li>
+                    <li data-section="orders"><i class="fas fa-shopping-cart"></i> My Orders</li>
+                    <li data-section="quotes"><i class="fas fa-file-invoice-dollar"></i> Quotes</li>
+                    <li data-section="inventory"><i class="fas fa-boxes"></i> Inventory</li>
+                    <li data-section="support"><i class="fas fa-tools"></i> Support</li>
+                    <li onclick="handleLogout()" style="color: #ff4d4d; margin-top: 20px;"><i
+                            class="fas fa-sign-out-alt"></i> Logout</li>
+                </ul>
+            </aside>
+
+            <div class="reveal" id="main-distributor-content" style="transition-delay: 0.1s;">
+                <!-- Overview Section -->
+                <div id="section-overview" class="dist-content-section">
+                    <div class="section-title" style="text-align: left; margin-bottom: 30px;">
+                        <h2>Welcome back, Partner</h2>
+                        <p>Here's an overview of your distribution activity.</p>
+                    </div>
+
+                    <div class="stat-banner">
+                        <div class="stat-item">
+                            <h3>12</h3>
+                            <p>Active Orders</p>
+                        </div>
+                        <div class="stat-item">
+                            <h3>$45.2k</h3>
+                            <p>MTD Volume</p>
+                        </div>
+                        <div class="stat-item">
+                            <h3>3</h3>
+                            <p>Open Quotes</p>
+                        </div>
+                    </div>
+
+                    <div class="card-grid">
+                        <div class="db-card">
+                            <h3>Marketing Center</h3>
+                            <p class="mt-10 mb-20">Access premium brochures and case studies.</p>
+                            <button class="btn btn-primary" style="width: 100%;">Access Library</button>
+                        </div>
+                        <div class="db-card">
+                            <h3>Technical Hotline</h3>
+                            <p class="mt-10 mb-20">Connect with clinical engineering team.</p>
+                            <button class="btn btn-outline" style="width: 100%;">Open Ticket</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Orders Section -->
+                <div id="section-orders" class="dist-content-section" style="display: none;">
+                    <div class="section-title" style="text-align: left; margin-bottom: 30px;">
+                        <h2>Order Tracking</h2>
+                        <p>Detailed view of your current and past fulfillment cycles.</p>
+                    </div>
+                    <div class="db-card">
+                        <div style="overflow-x: auto;">
+                            <table style="width: 100%; border-collapse: collapse;">
+                                <thead>
+                                    <tr style="text-align: left; border-bottom: 1px solid var(--border-color);">
+                                        <th style="padding: 12px;">Order ID</th>
+                                        <th style="padding: 12px;">Date</th>
+                                        <th style="padding: 12px;">Items</th>
+                                        <th style="padding: 12px;">Status</th>
+                                        <th style="padding: 12px;">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr style="border-bottom: 1px solid var(--border-color);">
+                                        <td style="padding: 12px;">#MT-88210</td>
+                                        <td style="padding: 12px;">Jan 22, 2026</td>
+                                        <td style="padding: 12px;">Surgical Scalpel (x50)</td>
+                                        <td style="padding: 12px;"><span
+                                                style="color: #28a745; font-weight: 600;">Shipped</span></td>
+                                        <td style="padding: 12px;"><button class="btn btn-outline"
+                                                style="padding: 4px 10px; font-size: 0.85rem;">Track</button></td>
+                                    </tr>
+                                    <tr style="border-bottom: 1px solid var(--border-color);">
+                                        <td style="padding: 12px;">#MT-88205</td>
+                                        <td style="padding: 12px;">Jan 20, 2026</td>
+                                        <td style="padding: 12px;">Diagnostic Monitor (x5)</td>
+                                        <td style="padding: 12px;"><span
+                                                style="color: #ffc107; font-weight: 600;">Processing</span></td>
+                                        <td style="padding: 12px;"><button class="btn btn-outline"
+                                                style="padding: 4px 10px; font-size: 0.85rem;">View</button></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Quotes Section -->
+                <div id="section-quotes" class="dist-content-section" style="display: none;">
+                    <div class="section-title" style="text-align: left; margin-bottom: 30px;">
+                        <h2>Pending Quotes</h2>
+                        <p>Quotes requested for specialty medical instrumentation.</p>
+                    </div>
+                    <div class="db-card">
+                        <div
+                            style="border-left: 4px solid var(--primary-color); padding: 15px; background: var(--section-bg); border-radius: 0 10px 10px 0;">
+                            <strong>QT-552 - Robotic Arm Assembly</strong>
+                            <p style="font-size: 0.9rem; color: var(--text-muted);" class="mt-10">Status: Under
+                                Engineering Review</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Inventory Section -->
+                <div id="section-inventory" class="dist-content-section" style="display: none;">
+                    <div class="section-title" style="text-align: left; margin-bottom: 30px;">
+                        <h2>Product Availability</h2>
+                        <p>Real-time stock levels for your assigned territory.</p>
+                    </div>
+                    <div class="db-card">
+                        <p style="color: var(--text-muted);">Stock level integration is currently refreshing. Please
+                            check back in 5 minutes for the latest batch data.</p>
+                    </div>
+                </div>
+
+                <!-- Support Section -->
+                <div id="section-support" class="dist-content-section" style="display: none;">
+                    <div class="section-title" style="text-align: left; margin-bottom: 30px;">
+                        <h2>Partner Support</h2>
+                        <p>How can we assist your clinical distribution today?</p>
+                    </div>
+                    <div class="db-card">
+                        <button class="btn btn-primary mb-20">Submit New Support Case</button>
+                        <p style="font-size: 0.9rem;">Urgent surgical assistance hotline: <strong>+1 (800)
+                                MED-TECH</strong></p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <div id="footer-placeholder"></div>
+    <script src="js/main.js"></script>
+    <script>
+        if (localStorage.getItem('userRole') !== 'distributor') {
+            window.location.href = 'login.html';
+        }
+
+        document.querySelectorAll('#distributor-menu li[data-section]').forEach(item => {
+            item.addEventListener('click', () => {
+                const sectionId = item.getAttribute('data-section');
+                switchDistSection(sectionId);
+
+                // Update active state in sidebar
+                document.querySelectorAll('#distributor-menu li').forEach(li => li.classList.remove('active'));
+                item.classList.add('active');
+            });
+        });
+
+        function switchDistSection(sectionId) {
+            // Hide all sections
+            document.querySelectorAll('.dist-content-section').forEach(section => {
+                section.style.display = 'none';
+            });
+
+            // Show target section
+            const target = document.getElementById(`section-${sectionId}`);
+            if (target) {
+                target.style.display = 'block';
+                // Trigger scroll reveal for new content if needed
+                if (window.reveal) window.reveal();
+            }
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Partnership Application | Meditech Mfg</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="icon" type="image/png" href="favicon.png">
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .auth-container {
+            max-width: 600px;
+            margin: 60px auto;
+            background-color: var(--card-bg);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border-color);
+        }
+
+        .auth-logo {
+            margin-bottom: 30px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 12px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .auth-logo:hover {
+            opacity: 0.8;
+            transform: scale(1.02);
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group.full-width {
+            grid-column: span 2;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--text-color);
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: var(--font-main);
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary-color);
+        }
+
+        .admin-notice {
+            background-color: #fff3cd;
+            color: #856404;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 25px;
+            font-size: 0.9rem;
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            border: 1px solid #ffeeba;
+        }
+
+        @media (max-width: 600px) {
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .form-group.full-width {
+                grid-column: span 1;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div id="header-placeholder"></div>
+
+    <main class="container">
+        <div class="auth-container reveal">
+            <a href="index.html" class="auth-logo">
+                <i class="fas fa-briefcase-medical" style="font-size: 2rem; color: var(--primary-color);"></i>
+                <div class="logo-text" style="font-size: 1.8rem;">MEDITECH</div>
+            </a>
+
+            <h2 class="text-center mb-10">Partnership Application</h2>
+            <p class="text-center mb-30" style="color: var(--text-muted);">Join our global network of medical
+                professionals.</p>
+
+            <div class="admin-notice">
+                <i class="fas fa-info-circle"></i>
+                <span>Note: Your application must be reviewed and approved by our administration before you can access
+                    the portal.</span>
+            </div>
+
+            <form id="signup-form">
+                <div class="form-grid">
+                    <div class="form-group full-width">
+                        <label>Company Name</label>
+                        <input type="text" class="form-control" placeholder="Enter legally registered company name"
+                            required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Business Email</label>
+                        <input type="email" class="form-control" placeholder="corporate@email.com" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Phone Number</label>
+                        <input type="tel" class="form-control" placeholder="+1 (555) 000-0000" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Region / Country</label>
+                        <select class="form-control" required>
+                            <option value="">Select Region</option>
+                            <option>North America</option>
+                            <option>Europe</option>
+                            <option>Asia Pacific</option>
+                            <option>Latin America</option>
+                            <option>Middle East & Africa</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Product Category Interest</label>
+                        <select class="form-control" required>
+                            <option value="">Select Category</option>
+                            <option>Surgical Instruments</option>
+                            <option>Diagnostic Systems</option>
+                            <option>Patient Care Equipment</option>
+                            <option>Orthopedic Solutions</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group full-width">
+                        <label>Message to Administration (Optional)</label>
+                        <textarea class="form-control" rows="4"
+                            placeholder="Briefly describe your distribution experience..."></textarea>
+                    </div>
+                </div>
+
+                <div class="form-group" style="margin-top: 10px;">
+                    <label style="font-weight: 400; font-size: 0.9rem;">
+                        <input type="checkbox" required> I agree to the <a href="#"
+                            style="color: var(--primary-color);">Distributor Terms & Conditions</a>.
+                    </label>
+                </div>
+
+                <button type="submit" class="btn btn-primary"
+                    style="width: 100%; padding: 14px; margin-top: 10px;">Submit Application</button>
+            </form>
+
+            <p class="text-center mt-30" style="color: var(--text-muted);">
+                Already registered? <a href="login.html" style="color: var(--primary-color); font-weight: 600;">Sign In
+                    Instead</a>
+            </p>
+        </div>
+    </main>
+
+    <div id="footer-placeholder"></div>
+
+    <script src="js/main.js"></script>
+    <script>
+        document.getElementById('signup-form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            alert('Your application has been submitted successfully. Our admin team will review it and contact you via email.');
+            window.location.href = 'login.html';
+        });
+    </script>
+</body>
+
+</html>
