@@ -17,6 +17,7 @@
             justify-content: center;
             gap: 20px;
             margin-bottom: 40px;
+            flex-wrap: wrap;
         }
 
         .tab {
@@ -61,16 +62,16 @@
 
                 <!-- 1. Product Categories -->
                 <div class="filter-tabs reveal">
-                    <div class="tab active">All</div>
-                    <div class="tab">Surgical</div>
-                    <div class="tab">Orthopedic</div>
-                    <div class="tab">Cardiovascular</div>
-                    <div class="tab">Diagnostic</div>
+                    <div class="tab active" data-category="all">All</div>
+                    <div class="tab" data-category="surgical">Surgical</div>
+                    <div class="tab" data-category="orthopedic">Orthopedic</div>
+                    <div class="tab" data-category="cardiovascular">Cardiovascular</div>
+                    <div class="tab" data-category="diagnostic">Diagnostic</div>
                 </div>
 
                 <!-- 2. Individual Product Listings -->
                 <div class="card-grid">
-                    <div class="card reveal">
+                    <div class="card reveal" data-category="surgical">
                         <div class="card-img"
                             style="background-image: url('https://images.pexels.com/photos/6291088/pexels-photo-6291088.jpeg');">
                         </div>
@@ -100,7 +101,7 @@
                         </div>
                     </div>
 
-                    <div class="card reveal" style="transition-delay: 0.1s;">
+                    <div class="card reveal" style="transition-delay: 0.1s;" data-category="surgical">
                         <div class="card-img"
                             style="background-image: url('https://images.unsplash.com/photo-1485081669829-bacb8c7bb1f3?auto=format&fit=crop&w=800&q=80');">
                         </div>
@@ -129,7 +130,7 @@
                         </div>
                     </div>
 
-                    <div class="card reveal" style="transition-delay: 0.2s;">
+                    <div class="card reveal" style="transition-delay: 0.2s;" data-category="diagnostic">
                         <div class="card-img"
                             style="background-image: url('https://images.pexels.com/photos/7089021/pexels-photo-7089021.jpeg');">
                         </div>
@@ -152,6 +153,65 @@
                                     <li>OS: MediOS v2.1</li>
                                     <li>Battery: 12hr Standby</li>
                                     <li>Bulk Price: $3,200/unit</li>
+                                </ul>
+                                <button class="btn btn-primary mt-20" style="width: 100%;">Order Prototype</button>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <!-- New Product: Orthopedic -->
+                    <div class="card reveal" style="transition-delay: 0.3s;" data-category="orthopedic">
+                        <div class="card-img"
+                            style="background-image: url('https://images.pexels.com/photos/3376790/pexels-photo-3376790.jpeg');">
+                        </div>
+                        <div class="card-body">
+                            <h3>Titanium Bone Plate</h3>
+                            <p>Our high-strength titanium alloy plates provide robust fracture fixation with a
+                                low-profile
+                                design to minimize soft tissue irritation. Available in anatomical shapes for various
+                                skeletal regions.</p>
+
+                            <div class="public-only mt-20">
+                                <p style="color: var(--secondary-color); font-size: 0.9rem;"><i class="fas fa-lock"></i>
+                                    Login to view technical specifications</p>
+                                <a href="distributor-login.html" class="btn btn-outline"
+                                    style="width: 100%; text-align: center;">Login for Specs</a>
+                            </div>
+                            <div class="distributor-only mt-20">
+                                <span class="badge-restricted">Distributor Only</span>
+                                <ul style="font-size: 0.9rem;" class="mt-20">
+                                    <li>Material: Ti-6Al-4V</li>
+                                    <li>Thickness: 2.5mm</li>
+                                    <li>Bulk Price: $350/unit</li>
+                                </ul>
+                                <button class="btn btn-primary mt-20" style="width: 100%;">Order Prototype</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- New Product: Cardiovascular -->
+                    <div class="card reveal" style="transition-delay: 0.4s;" data-category="cardiovascular">
+                        <div class="card-img"
+                            style="background-image: url('https://images.pexels.com/photos/4386466/pexels-photo-4386466.jpeg');">
+                        </div>
+                        <div class="card-body">
+                            <h3>Cardiac Stent System</h3>
+                            <p>The Proflow Drug-Eluting Stent system offers superior deliverability and conformability.
+                                Designed to treat coronary artery disease, it ensures long-term vessel patency.</p>
+
+                            <div class="public-only mt-20">
+                                <p style="color: var(--secondary-color); font-size: 0.9rem;"><i class="fas fa-lock"></i>
+                                    Login to view technical specifications</p>
+                                <a href="distributor-login.html" class="btn btn-outline"
+                                    style="width: 100%; text-align: center;">Login for Specs</a>
+                            </div>
+                            <div class="distributor-only mt-20">
+                                <span class="badge-restricted">Distributor Only</span>
+                                <ul style="font-size: 0.9rem;" class="mt-20">
+                                    <li>Polymer: Bio-compatible</li>
+                                    <li>Diameter: 2.5-4.0mm</li>
+                                    <li>Bulk Price: $850/unit</li>
                                 </ul>
                                 <button class="btn btn-primary mt-20" style="width: 100%;">Order Prototype</button>
                             </div>
@@ -192,6 +252,7 @@
 
     <div id="footer-placeholder"></div>
     <script src="js/main.js"></script>
+    <script src="js/products.js"></script>
 </body>
 
 </html>
