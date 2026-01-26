@@ -4,355 +4,931 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Panel | Meditech Mfg</title>
+    <title>Admin Dashboard | Meditech Mfg</title>
     <link
         href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@500;600;700;800&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="css/style.css">
     <style>
-        .admin-grid {
-            display: grid;
-            grid-template-columns: 260px 1fr;
-            min-height: 90vh;
-            gap: 30px;
+        body {
+            background-color: #f4f6f9;
+            /* Soft background */
+            margin: 0;
+            /* Reset body margin */
+            font-family: 'Inter', sans-serif;
         }
 
+        /* Parent wrapper using flex to fill view height */
+        .admin-layout {
+            display: flex;
+            min-height: 100vh;
+            width: 100%;
+        }
+
+        /* Sidebar: Fixed width, sticky/fixed behavior */
         .admin-sidebar {
-            background-color: var(--card-bg);
-            border: 1px solid var(--border-color);
-            border-radius: 15px;
-            padding: 25px;
-            height: fit-content;
+            background-color: #ffffff;
+            border-right: 1px solid var(--border-color);
+            width: 260px;
+            height: 100vh;
             position: sticky;
-            top: 100px;
+            /* Keeps it in view but part of flex flow */
+            top: 0;
+            flex-shrink: 0;
+            /* Prevents shrinking */
+            overflow-y: auto;
+            padding: 20px;
+            z-index: 1000;
         }
 
-        .admin-sidebar li {
-            padding: 12px 15px;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: var(--transition);
-            margin-bottom: 5px;
+        /* Main Content: Expands to fill remaining space */
+        .admin-main {
+            flex: 1;
+            /* Takes remaining width */
+            padding: 30px;
+            overflow-x: hidden;
+            /* Prevents horizontal scroll */
+        }
+
+        .sidebar-logo {
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 10px;
+            margin-bottom: 40px;
+            padding: 0 10px;
+        }
+
+        .sidebar-logo i {
+            font-size: 1.8rem;
+            color: var(--primary-color);
+        }
+
+        .sidebar-logo span {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--text-color);
+        }
+
+        .sidebar-menu {
+            list-style: none;
+            /* Remove bullets */
+            padding: 0;
+        }
+
+        .sidebar-menu li {
+            margin-bottom: 8px;
+        }
+
+        .sidebar-menu .nav-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 12px 15px;
+            border-radius: 8px;
+            color: var(--text-muted);
             font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
         }
 
-        .admin-sidebar li:hover,
-        .admin-sidebar li.active {
-            background-color: var(--primary-color);
-            color: white;
+        .sidebar-menu .nav-item:hover,
+        .sidebar-menu .nav-item.active {
+            background-color: #e3f2fd;
+            color: var(--primary-color);
         }
 
-        .stat-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        .sidebar-menu .nav-item i {
+            width: 20px;
+            text-align: center;
+        }
+
+        /* Top Bar */
+        .dashboard-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
             gap: 20px;
+        }
+
+        .welcome-text h2 {
+            font-size: 1.8rem;
+            margin-bottom: 5px;
+            color: var(--text-color);
+        }
+
+        .welcome-text p {
+            color: var(--text-muted);
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 15px;
+        }
+
+        /* Stats Grid - Responsive */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            /* 4 per row on desktop */
+            gap: 25px;
             margin-bottom: 30px;
         }
 
         .stat-card {
-            background-color: var(--card-bg);
-            border: 1px solid var(--border-color);
-            padding: 20px;
-            border-radius: 12px;
-            text-align: center;
-        }
-
-        .stat-card h2 {
-            font-size: 2rem;
-            color: var(--primary-color);
-        }
-
-        .admin-section {
-            background-color: var(--card-bg);
-            border: 1px solid var(--border-color);
-            border-radius: 15px;
+            background: #ffffff;
             padding: 25px;
-            margin-bottom: 30px;
+            border-radius: 12px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
         }
 
-        .badge {
-            padding: 4px 10px;
+        .stat-info h3 {
+            font-size: 2rem;
+            color: var(--text-color);
+            margin-bottom: 5px;
+            margin-top: 0;
+        }
+
+        .stat-info p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin: 0;
+        }
+
+        .stat-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            flex-shrink: 0;
+            /* Prevent icon from squishing */
+        }
+
+        /* Content Section */
+        .content-card {
+            background: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            padding: 25px;
+            width: 100%;
+            /* Ensure full width */
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .card-header h3 {
+            font-size: 1.2rem;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th,
+        td {
+            text-align: left;
+            padding: 15px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        th {
+            color: var(--text-muted);
+            font-weight: 500;
+            font-size: 0.9rem;
+        }
+
+        td {
+            font-size: 0.95rem;
+        }
+
+        .status-badge {
+            padding: 5px 12px;
             border-radius: 20px;
             font-size: 0.8rem;
             font-weight: 600;
         }
 
-        .badge-pending {
+        .status-pending {
             background: #fff3cd;
             color: #856404;
         }
 
-        .badge-approved {
-            background: #d4edda;
-            color: #155724;
+        .status-approved {
+            background: #d1e7dd;
+            color: #0f5132;
+        }
+
+        .status-shipped {
+            background: #cfe2ff;
+            color: #084298;
+        }
+
+        .status-resolved {
+            background: #e2e3e5;
+            color: #41464b;
+        }
+
+        /* Responsive Breakpoints */
+        @media (max-width: 1024px) {
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+                /* 2 per row on tablet */
+            }
+        }
+
+        @media (max-width: 768px) {
+            .admin-layout {
+                flex-direction: column;
+            }
+
+            .admin-sidebar {
+                width: 100%;
+                height: auto;
+                position: relative;
+                border-right: none;
+                border-bottom: 1px solid var(--border-color);
+            }
+
+            .admin-main {
+                padding: 20px;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+                /* 1 per row on mobile */
+            }
         }
     </style>
 </head>
 
 <body>
-    <div id="header-placeholder"></div>
 
-    <main class="container py-40" style="padding-top: 50px; padding-bottom: 50px;">
-        <div class="admin-grid">
-            <aside class="admin-sidebar reveal">
-                <h3 class="mb-20" style="padding-left: 15px;">Administration</h3>
-                <ul id="admin-menu">
-                    <li class="active" data-section="dashboard"><i class="fas fa-chart-line"></i> Dashboard</li>
-                    <li data-section="pending"><i class="fas fa-user-plus"></i> Pending Apps</li>
-                    <li data-section="distributors"><i class="fas fa-users"></i> Distributors</li>
-                    <li data-section="inventory"><i class="fas fa-boxes"></i> Inventory Master</li>
-                    <li data-section="inquiries"><i class="fas fa-envelope-open-text"></i> Clinical Inquiries</li>
-                    <li data-section="settings"><i class="fas fa-cog"></i> Settings</li>
-                    <li onclick="handleLogout()" style="color: #ff4d4d; margin-top: 30px;"><i
-                            class="fas fa-sign-out-alt"></i> Logout</li>
-                </ul>
-            </aside>
+    <div class="admin-layout">
+        <!-- Sidebar -->
+        <aside class="admin-sidebar">
+            <div class="sidebar-logo">
+                <i class="fas fa-briefcase-medical"></i>
+                <span>Meditech</span>
+            </div>
 
-            <div class="reveal" id="main-admin-content" style="transition-delay: 0.1s;">
-                <!-- Dashboard Section -->
-                <div id="section-dashboard" class="content-section">
-                    <div class="section-title" style="text-align: left; margin-bottom: 30px;">
-                        <h2>System Control Panel</h2>
-                        <p>Global operations overview for Meditech Mfg.</p>
+            <ul class="sidebar-menu">
+                <li>
+                    <div class="nav-item active" data-target="dashboard"><i class="fas fa-th-large"></i> Dashboard</div>
+                </li>
+                <li>
+                    <div class="nav-item" data-target="products"><i class="fas fa-box-open"></i> Product Management
                     </div>
-
-                    <div class="stat-grid">
-                        <div class="stat-card">
-                            <h2>156</h2>
-                            <p style="color: var(--text-muted); font-size: 0.8rem; text-transform: uppercase;">Active
-                                Partners</p>
-                        </div>
-                        <div class="stat-card">
-                            <h2>8</h2>
-                            <p style="color: var(--text-muted); font-size: 0.8rem; text-transform: uppercase;">Pending
-                                Approval</p>
-                        </div>
-                        <div class="stat-card">
-                            <h2>42</h2>
-                            <p style="color: var(--text-muted); font-size: 0.8rem; text-transform: uppercase;">Total
-                                SKUs</p>
-                        </div>
-                        <div class="stat-card">
-                            <h2>$1.2M</h2>
-                            <p style="color: var(--text-muted); font-size: 0.8rem; text-transform: uppercase;">Monthly
-                                Revenue</p>
-                        </div>
+                </li>
+                <li>
+                    <div class="nav-item" data-target="distributors"><i class="fas fa-users"></i> Distributor Management
                     </div>
-
-                    <div class="admin-section">
-                        <h3 class="mb-20">Recent Notifications</h3>
-                        <p style="color: var(--text-muted);">No new system alerts. Everything is running smoothly.</p>
+                </li>
+                <li>
+                    <div class="nav-item" data-target="orders"><i class="fas fa-shipping-fast"></i> Orders & Supply
+                        Chain</div>
+                </li>
+                <li>
+                    <div class="nav-item" data-target="quality"><i class="fas fa-certificate"></i> Quality & Compliance
                     </div>
+                </li>
+                <li>
+                    <div class="nav-item" data-target="service"><i class="fas fa-headset"></i> Service & Complaints
+                    </div>
+                </li>
+            </ul>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="admin-main">
+            <!-- Top Bar -->
+            <div class="dashboard-header">
+                <div class="welcome-text">
+                    <h2>Welcome back, Admin</h2>
+                    <p>Here's what's happening with your manufacturing operations today.</p>
                 </div>
+                <div class="action-buttons">
+                    <a href="index.html" class="btn btn-outline"><i class="fas fa-external-link-alt"></i> Back to
+                        Website</a>
+                    <button onclick="handleLogout()" class="btn btn-primary"
+                        style="background-color: #dc3545; border-color: #dc3545;">Logout</button>
+                </div>
+            </div>
 
-                <!-- Pending Apps Section -->
-                <div id="section-pending" class="content-section" style="display: none;">
-                    <div class="section-title" style="text-align: left; margin-bottom: 30px;">
-                        <h2>Pending Applications</h2>
-                        <p>Review and approve new distributor partnerships.</p>
+            <!-- Dynamic Content Area -->
+            <div id="dashboard-content">
+                <!-- 1. Stats Grid -->
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-info">
+                            <h3>42</h3>
+                            <p>Total Products</p>
+                        </div>
+                        <div class="stat-icon" style="background: #e3f2fd; color: #0d47a1;">
+                            <i class="fas fa-cubes"></i>
+                        </div>
                     </div>
-                    <div class="admin-section">
-                        <div style="overflow-x: auto;">
-                            <table style="width: 100%; border-collapse: collapse;">
-                                <thead>
-                                    <tr style="text-align: left; border-bottom: 1px solid var(--border-color);">
-                                        <th style="padding: 12px;">Company</th>
-                                        <th style="padding: 12px;">Region</th>
-                                        <th style="padding: 12px;">Requested At</th>
-                                        <th style="padding: 12px;">Status</th>
-                                        <th style="padding: 12px;">Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr style="border-bottom: 1px solid var(--border-color);">
-                                        <td style="padding: 12px;">Pacific Care Ltd</td>
-                                        <td style="padding: 12px;">Australia</td>
-                                        <td style="padding: 12px;">2 hours ago</td>
-                                        <td style="padding: 12px;"><span class="badge badge-pending">Review
-                                                Pending</span></td>
-                                        <td style="padding: 12px;"><button class="btn btn-primary"
-                                                style="padding: 4px 12px; font-size: 0.85rem;">Approve</button></td>
-                                    </tr>
-                                    <tr style="border-bottom: 1px solid var(--border-color);">
-                                        <td style="padding: 12px;">Global Med Corp</td>
-                                        <td style="padding: 12px;">USA</td>
-                                        <td style="padding: 12px;">5 hours ago</td>
-                                        <td style="padding: 12px;"><span class="badge badge-pending">Documentation
-                                                Needed</span></td>
-                                        <td style="padding: 12px;"><button class="btn btn-outline"
-                                                style="padding: 4px 12px; font-size: 0.85rem;">Review</button></td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                    <div class="stat-card">
+                        <div class="stat-info">
+                            <h3>156</h3>
+                            <p>Active Distributors</p>
+                        </div>
+                        <div class="stat-icon" style="background: #e0f2f1; color: #00695c;">
+                            <i class="fas fa-handshake"></i>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-info">
+                            <h3>8</h3>
+                            <p>Open Service Complaints</p>
+                        </div>
+                        <div class="stat-icon" style="background: #ffebee; color: #c62828;">
+                            <i class="fas fa-exclamation-circle"></i>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-info">
+                            <h3>24</h3>
+                            <p>Compliance Certificates</p>
+                        </div>
+                        <div class="stat-icon" style="background: #fff3e0; color: #ef6c00;">
+                            <i class="fas fa-file-contract"></i>
                         </div>
                     </div>
                 </div>
 
-                <!-- Distributors Section -->
-                <div id="section-distributors" class="content-section" style="display: none;">
-                    <div class="section-title" style="text-align: left; margin-bottom: 30px;">
-                        <h2>Active Distributors</h2>
-                        <p>Manage existing partnerships and performance quotas.</p>
+                <!-- 2. Recent Activity Table -->
+                <div class="content-card">
+                    <div class="card-header">
+                        <h3>Recent Activity</h3>
+                        <button class="btn btn-outline" style="padding: 5px 15px; font-size: 0.9rem;">View All</button>
                     </div>
-                    <div class="admin-section">
-                        <div style="overflow-x: auto;">
-                            <table style="width: 100%; border-collapse: collapse;">
-                                <thead>
-                                    <tr style="text-align: left; border-bottom: 1px solid var(--border-color);">
-                                        <th style="padding: 12px;">Distributor Name</th>
-                                        <th style="padding: 12px;">Territory</th>
-                                        <th style="padding: 12px;">Annual Volume</th>
-                                        <th style="padding: 12px;">Last Order</th>
-                                        <th style="padding: 12px;">Status</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr style="border-bottom: 1px solid var(--border-color);">
-                                        <td style="padding: 12px;">EuroMed Systems</td>
-                                        <td style="padding: 12px;">Germany</td>
-                                        <td style="padding: 12px;">$450,000</td>
-                                        <td style="padding: 12px;">3 days ago</td>
-                                        <td style="padding: 12px;"><span class="badge badge-approved">Compliance
-                                                Clear</span></td>
-                                    </tr>
-                                    <tr style="border-bottom: 1px solid var(--border-color);">
-                                        <td style="padding: 12px;">AsiaPath Medical</td>
-                                        <td style="padding: 12px;">Singapore</td>
-                                        <td style="padding: 12px;">$210,000</td>
-                                        <td style="padding: 12px;">1 week ago</td>
-                                        <td style="padding: 12px;"><span class="badge badge-approved">Compliance
-                                                Clear</span></td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Inventory Master Section -->
-                <div id="section-inventory" class="content-section" style="display: none;">
-                    <div class="section-title" style="text-align: left; margin-bottom: 30px;">
-                        <h2>Inventory Master</h2>
-                        <p>Global SKU management and stock level tracking.</p>
-                    </div>
-                    <div class="admin-section">
-                        <div style="overflow-x: auto;">
-                            <table style="width: 100%; border-collapse: collapse;">
-                                <thead>
-                                    <tr style="text-align: left; border-bottom: 1px solid var(--border-color);">
-                                        <th style="padding: 12px;">SKU</th>
-                                        <th style="padding: 12px;">Product Category</th>
-                                        <th style="padding: 12px;">On Hand</th>
-                                        <th style="padding: 12px;">Reserved</th>
-                                        <th style="padding: 12px;">Status</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr style="border-bottom: 1px solid var(--border-color);">
-                                        <td style="padding: 12px;">SKU-9981-TH</td>
-                                        <td style="padding: 12px;">Orthopedic Alloys</td>
-                                        <td style="padding: 12px;">1,200 units</td>
-                                        <td style="padding: 12px;">400 units</td>
-                                        <td style="padding: 12px;"><span class="badge badge-approved"
-                                                style="background-color: #e3f2fd; color: #0d47a1;">Healthy</span></td>
-                                    </tr>
-                                    <tr style="border-bottom: 1px solid var(--border-color);">
-                                        <td style="padding: 12px;">SKU-4522-RB</td>
-                                        <td style="padding: 12px;">Robotic Components</td>
-                                        <td style="padding: 12px;">15 units</td>
-                                        <td style="padding: 12px;">12 units</td>
-                                        <td style="padding: 12px;"><span class="badge"
-                                                style="background-color: #fce4ec; color: #880e4f;">Low Stock</span></td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Clinical Inquiries Section -->
-                <div id="section-inquiries" class="content-section" style="display: none;">
-                    <div class="section-title" style="text-align: left; margin-bottom: 30px;">
-                        <h2>Clinical Inquiries</h2>
-                        <p>Respond to technical queries from medical professionals.</p>
-                    </div>
-                    <div class="admin-section">
-                        <div class="card mb-20" style="text-align: left; padding: 20px;">
-                            <div style="display: flex; justify-content: space-between;">
-                                <strong>RE: Material Toxicity Report #882</strong>
-                                <span class="badge badge-pending">New Inq</span>
-                            </div>
-                            <p class="mt-10" style="font-size: 0.9rem;">Urgent request from Dr. Miller regarding
-                                long-term titanium integration stats for the new hip joint series...</p>
-                            <button class="btn btn-primary mt-20" style="padding: 6px 15px; font-size: 0.85rem;">Reply
-                                to Doctor</button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Settings Section -->
-                <div id="section-settings" class="content-section" style="display: none;">
-                    <div class="section-title" style="text-align: left; margin-bottom: 30px;">
-                        <h2>Admin Settings</h2>
-                        <p>Configure system parameters and security protocols.</p>
-                    </div>
-                    <div class="admin-section">
-                        <div class="form-group">
-                            <label>System Alert Email</label>
-                            <input type="email" class="form-control" value="admin@meditechmfg.com">
-                        </div>
-                        <div class="form-group mt-20">
-                            <label>API Rate Limiting</label>
-                            <select class="form-control">
-                                <option>Conservative (500 req/min)</option>
-                                <option selected>Standard (1000 req/min)</option>
-                                <option>Aggressive (5000 req/min)</option>
-                            </select>
-                        </div>
-                        <button class="btn btn-primary mt-20">Save Configurations</button>
+                    <div style="overflow-x: auto;">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Date</th>
+                                    <th>Product / Device Name</th>
+                                    <th>Distributor / Hospital</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Jan 24, 2026</td>
+                                    <td>Laser Scalpel X1</td>
+                                    <td>EuroMed Systems (Germany)</td>
+                                    <td><span class="status-badge status-shipped">Shipped</span></td>
+                                </tr>
+                                <tr>
+                                    <td>Jan 23, 2026</td>
+                                    <td>Titanium Bone Plate</td>
+                                    <td>Pacific Care Ltd (Australia)</td>
+                                    <td><span class="status-badge status-pending">Pending</span></td>
+                                </tr>
+                                <tr>
+                                    <td>Jan 22, 2026</td>
+                                    <td>Smart Monitor V5</td>
+                                    <td>Global Med Corp (USA)</td>
+                                    <td><span class="status-badge status-approved">Approved</span></td>
+                                </tr>
+                                <tr>
+                                    <td>Jan 21, 2026</td>
+                                    <td>Micro-Forceps Series-G</td>
+                                    <td>AsiaPath Medical (Singapore)</td>
+                                    <td><span class="status-badge status-resolved">Resolved</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
 
-        </div>
-    </main>
+            <!-- Product Management Section -->
+            <div id="product-content" style="display: none;">
+                <!-- 1. Product Stats -->
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-info">
+                            <h3>42</h3>
+                            <p>Total Products</p>
+                        </div>
+                        <div class="stat-icon" style="background: #e3f2fd; color: #0d47a1;">
+                            <i class="fas fa-boxes"></i>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-info">
+                            <h3>35</h3>
+                            <p>Active Products</p>
+                        </div>
+                        <div class="stat-icon" style="background: #d1e7dd; color: #0f5132;">
+                            <i class="fas fa-check-circle"></i>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-info">
+                            <h3>5</h3>
+                            <p>In Development</p>
+                        </div>
+                        <div class="stat-icon" style="background: #fff3cd; color: #856404;">
+                            <i class="fas fa-flask"></i>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-info">
+                            <h3>2</h3>
+                            <p>Discontinued</p>
+                        </div>
+                        <div class="stat-icon" style="background: #f8d7da; color: #721c24;">
+                            <i class="fas fa-ban"></i>
+                        </div>
+                    </div>
+                </div>
 
-    <div id="footer-placeholder"></div>
-    <script src="js/main.js"></script>
+                <!-- 2. Product List & Controls -->
+                <div class="content-card">
+                    <div class="card-header" style="flex-wrap: wrap; gap: 15px;">
+                        <h3 style="margin: 0; white-space: nowrap;">Product Inventory</h3>
+
+                        <div style="display: flex; gap: 10px; flex-wrap: wrap; flex: 1; justify-content: flex-end;">
+                            <!-- Search & Filter -->
+                            <div style="position: relative;">
+                                <input type="text" placeholder="Search products..."
+                                    style="padding: 8px 12px 8px 30px; border-radius: 6px; border: 1px solid var(--border-color); font-size: 0.9rem;">
+                                <i class="fas fa-search"
+                                    style="position: absolute; left: 10px; top: 50%; transform: translateY(-50%); color: var(--text-muted); font-size: 0.8rem;"></i>
+                            </div>
+                            <select
+                                style="padding: 8px 12px; border-radius: 6px; border: 1px solid var(--border-color); font-size: 0.9rem;">
+                                <option>All Status</option>
+                                <option>Active</option>
+                                <option>Development</option>
+                                <option>Discontinued</option>
+                            </select>
+
+                            <!-- Action Buttons -->
+                            <button class="btn btn-outline" style="padding: 6px 15px; font-size: 0.9rem;"><i
+                                    class="fas fa-file-alt"></i> Reports</button>
+                            <button class="btn btn-primary" style="padding: 6px 15px; font-size: 0.9rem;"><i
+                                    class="fas fa-plus"></i> Add Product</button>
+                        </div>
+                    </div>
+
+                    <div style="overflow-x: auto;">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Product Name</th>
+                                    <th>Category</th>
+                                    <th>Product Code / SKU</th>
+                                    <th>Status</th>
+                                    <th>Last Updated</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>Laser Scalpel X1</strong></td>
+                                    <td>Surgical Instruments</td>
+                                    <td>MED-SURG-X1</td>
+                                    <td><span class="status-badge status-approved">Active</span></td>
+                                    <td>Jan 20, 2026</td>
+                                    <td>
+                                        <button
+                                            style="border: none; background: none; color: var(--text-color); cursor: pointer;"><i
+                                                class="fas fa-eye"></i></button>
+                                        <button
+                                            style="border: none; background: none; color: var(--primary-color); cursor: pointer; margin-left: 10px;"><i
+                                                class="fas fa-edit"></i></button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Titanium Bone Plate</strong></td>
+                                    <td>Orthopedic Implants</td>
+                                    <td>ORTHO-TI-BP</td>
+                                    <td><span class="status-badge status-approved">Active</span></td>
+                                    <td>Jan 18, 2026</td>
+                                    <td>
+                                        <button
+                                            style="border: none; background: none; color: var(--text-color); cursor: pointer;"><i
+                                                class="fas fa-eye"></i></button>
+                                        <button
+                                            style="border: none; background: none; color: var(--primary-color); cursor: pointer; margin-left: 10px;"><i
+                                                class="fas fa-edit"></i></button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Smart Monitor V5</strong></td>
+                                    <td>Diagnostic</td>
+                                    <td>DIAG-SM-V5</td>
+                                    <td><span class="status-badge status-pending">In Dev</span></td>
+                                    <td>Jan 24, 2026</td>
+                                    <td>
+                                        <button
+                                            style="border: none; background: none; color: var(--text-color); cursor: pointer;"><i
+                                                class="fas fa-eye"></i></button>
+                                        <button
+                                            style="border: none; background: none; color: var(--primary-color); cursor: pointer; margin-left: 10px;"><i
+                                                class="fas fa-edit"></i></button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Legacy Stent Gen-1</strong></td>
+                                    <td>Cardiovascular</td>
+                                    <td>CARD-ST-G1</td>
+                                    <td><span class="status-badge status-resolved"
+                                            style="background-color: #f8d7da; color: #721c24;">Discontinued</span></td>
+                                    <td>Dec 10, 2025</td>
+                                    <td>
+                                        <button
+                                            style="border: none; background: none; color: var(--text-color); cursor: pointer;"><i
+                                                class="fas fa-eye"></i></button>
+                                        <button
+                                            style="border: none; background: none; color: var(--primary-color); cursor: pointer; margin-left: 10px;"><i
+                                                class="fas fa-edit"></i></button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Micro-Forceps Series-G</strong></td>
+                                    <td>Surgical Instruments</td>
+                                    <td>MED-SURG-MFG</td>
+                                    <td><span class="status-badge status-approved">Active</span></td>
+                                    <td>Jan 15, 2026</td>
+                                    <td>
+                                        <button
+                                            style="border: none; background: none; color: var(--text-color); cursor: pointer;"><i
+                                                class="fas fa-eye"></i></button>
+                                        <button
+                                            style="border: none; background: none; color: var(--primary-color); cursor: pointer; margin-left: 10px;"><i
+                                                class="fas fa-edit"></i></button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Distributor Management Section -->
+            <div id="distributor-content" style="display: none;">
+                <div class="content-card">
+                    <div class="card-header" style="justify-content: space-between;">
+                        <h3>Distributor Network</h3>
+                        <button class="btn btn-primary" style="padding: 6px 15px; font-size: 0.9rem;"><i
+                                class="fas fa-plus"></i> Add New Distributor</button>
+                    </div>
+                    <div style="overflow-x: auto;">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Distributor Name</th>
+                                    <th>Region</th>
+                                    <th>Contact Email</th>
+                                    <th>Status</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>EuroMed Systems</strong></td>
+                                    <td>Europe (Germany)</td>
+                                    <td>contact@euromed.de</td>
+                                    <td><span class="status-badge status-approved">Active</span></td>
+                                    <td>
+                                        <button
+                                            style="border: none; background: none; color: var(--text-color); cursor: pointer;"><i
+                                                class="fas fa-eye"></i></button>
+                                        <button
+                                            style="border: none; background: none; color: var(--primary-color); cursor: pointer; margin-left: 10px;"><i
+                                                class="fas fa-check"></i></button>
+                                        <button
+                                            style="border: none; background: none; color: #dc3545; cursor: pointer; margin-left: 10px;"><i
+                                                class="fas fa-ban"></i></button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><strong>AsiaPath Medical</strong></td>
+                                    <td>Asia (Singapore)</td>
+                                    <td>supply@asiapath.sg</td>
+                                    <td><span class="status-badge status-approved">Active</span></td>
+                                    <td>
+                                        <button
+                                            style="border: none; background: none; color: var(--text-color); cursor: pointer;"><i
+                                                class="fas fa-eye"></i></button>
+                                        <button
+                                            style="border: none; background: none; color: var(--primary-color); cursor: pointer; margin-left: 10px;"><i
+                                                class="fas fa-check"></i></button>
+                                        <button
+                                            style="border: none; background: none; color: #dc3545; cursor: pointer; margin-left: 10px;"><i
+                                                class="fas fa-ban"></i></button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Pacific Care Ltd</strong></td>
+                                    <td>Oceania (Australia)</td>
+                                    <td>imports@pacificcare.au</td>
+                                    <td><span class="status-badge status-pending">Pending</span></td>
+                                    <td>
+                                        <button
+                                            style="border: none; background: none; color: var(--text-color); cursor: pointer;"><i
+                                                class="fas fa-eye"></i></button>
+                                        <button
+                                            style="border: none; background: none; color: var(--primary-color); cursor: pointer; margin-left: 10px;"><i
+                                                class="fas fa-check"></i></button>
+                                        <button
+                                            style="border: none; background: none; color: #dc3545; cursor: pointer; margin-left: 10px;"><i
+                                                class="fas fa-ban"></i></button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quality & Compliance Section -->
+            <div id="quality-content" style="display: none;">
+                <!-- Certification Cards -->
+                <div class="stats-grid" style="grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));">
+                    <div class="stat-card">
+                        <div class="stat-info">
+                            <h3>ISO 13485</h3>
+                            <p>Status: <span style="color: green; font-weight: bold;">Valid</span></p>
+                            <p style="font-size: 0.8rem; margin-top: 5px;">Exp: Dec 2028</p>
+                        </div>
+                        <div class="stat-icon" style="background: #e3f2fd; color: #0d47a1;">
+                            <i class="fas fa-certificate"></i>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-info">
+                            <h3>CE Marking</h3>
+                            <p>Status: <span style="color: green; font-weight: bold;">Valid</span></p>
+                            <p style="font-size: 0.8rem; margin-top: 5px;">Exp: Jun 2027</p>
+                        </div>
+                        <div class="stat-icon" style="background: #d1e7dd; color: #0f5132;">
+                            <i class="fas fa-globe-europe"></i>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-info">
+                            <h3>FDA 510(k)</h3>
+                            <p>Status: <span style="color: #856404; font-weight: bold;">Pending Renewal</span></p>
+                            <p style="font-size: 0.8rem; margin-top: 5px;">Exp: Mar 2026</p>
+                        </div>
+                        <div class="stat-icon" style="background: #fff3cd; color: #856404;">
+                            <i class="fas fa-file-medical-alt"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; flex-wrap: wrap;">
+                    <!-- Compliance Documents -->
+                    <div class="content-card">
+                        <div class="card-header">
+                            <h3>Compliance Documents</h3>
+                            <button class="btn btn-outline" style="padding: 4px 10px; font-size: 0.8rem;"><i
+                                    class="fas fa-upload"></i> Upload</button>
+                        </div>
+                        <ul style="list-style: none; padding: 0;">
+                            <li
+                                style="display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid var(--border-color);">
+                                <span><i class="fas fa-file-pdf text-danger" style="margin-right: 10px;"></i> Technical
+                                    File v4.2</span>
+                                <span style="font-size: 0.85rem; color: var(--text-muted);">Jan 15, 2026</span>
+                            </li>
+                            <li
+                                style="display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid var(--border-color);">
+                                <span><i class="fas fa-file-pdf text-danger" style="margin-right: 10px;"></i> Clinical
+                                    Evaluation Report</span>
+                                <span style="font-size: 0.85rem; color: var(--text-muted);">Dec 20, 2025</span>
+                            </li>
+                            <li style="display: flex; justify-content: space-between; padding: 10px 0;">
+                                <span><i class="fas fa-file-pdf text-danger" style="margin-right: 10px;"></i> Risk
+                                    Management Plan</span>
+                                <span style="font-size: 0.85rem; color: var(--text-muted);">Nov 05, 2025</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- Audit Status -->
+                    <div class="content-card">
+                        <div class="card-header">
+                            <h3>Audit Status</h3>
+                        </div>
+                        <div style="margin-bottom: 20px;">
+                            <h4 style="font-size: 0.95rem; margin-bottom: 10px;">Internal Quality Audit</h4>
+                            <div
+                                style="background: #d1e7dd; color: #0f5132; padding: 10px; border-radius: 6px; display: flex; justify-content: space-between; align-items: center;">
+                                <span><i class="fas fa-check-circle"></i> Completed</span>
+                                <span style="font-size: 0.85rem;">Q4 2025</span>
+                            </div>
+                        </div>
+                        <div>
+                            <h4 style="font-size: 0.95rem; margin-bottom: 10px;">External ISO Audit</h4>
+                            <div
+                                style="background: #fff3cd; color: #856404; padding: 10px; border-radius: 6px; display: flex; justify-content: space-between; align-items: center;">
+                                <span><i class="fas fa-clock"></i> Scheduled</span>
+                                <span style="font-size: 0.85rem;">Feb 15, 2026</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Service & Complaints Section -->
+            <div id="service-content" style="display: none;">
+                <!-- Complaints Table -->
+                <div class="content-card">
+                    <div class="card-header">
+                        <h3>Customer Complaints & Feedback</h3>
+                    </div>
+                    <div style="overflow-x: auto;">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Product</th>
+                                    <th>Reported By</th>
+                                    <th>Priority</th>
+                                    <th>Status</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>#CP-2024</td>
+                                    <td>Smart Monitor V5</td>
+                                    <td>Global Med Corp</td>
+                                    <td><span class="badge" style="background: #f8d7da; color: #721c24;">High</span>
+                                    </td>
+                                    <td><span class="status-badge"
+                                            style="background: #e2e3e5; color: #41464b;">Open</span></td>
+                                    <td><button class="btn btn-outline"
+                                            style="padding: 4px 10px; font-size: 0.8rem;">Resolve</button></td>
+                                </tr>
+                                <tr>
+                                    <td>#CP-2021</td>
+                                    <td>Laser Scalpel X1</td>
+                                    <td>EuroMed Systems</td>
+                                    <td><span class="badge" style="background: #fff3cd; color: #856404;">Medium</span>
+                                    </td>
+                                    <td><span class="status-badge" style="background: #cfe2ff; color: #084298;">In
+                                            Progress</span></td>
+                                    <td><button class="btn btn-outline"
+                                            style="padding: 4px 10px; font-size: 0.8rem;">Update</button></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Service Requests -->
+                <div class="content-card" style="margin-top: 30px;">
+                    <div class="card-header">
+                        <h3>Active Service Requests</h3>
+                        <button class="btn btn-outline" style="padding: 5px 15px; font-size: 0.9rem;">Log New
+                            Request</button>
+                    </div>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px;">
+                        <div style="border: 1px solid var(--border-color); border-radius: 8px; padding: 15px;">
+                            <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+                                <strong>MRI Machine - Unit 42</strong>
+                                <span class="badge" style="background: #cfe2ff; color: #084298;">Technician
+                                    Dispatched</span>
+                            </div>
+                            <p style="font-size: 0.9rem; color: var(--text-muted);">Issue: Cooling system malfunction
+                                code E-404.</p>
+                        </div>
+                        <div style="border: 1px solid var(--border-color); border-radius: 8px; padding: 15px;">
+                            <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+                                <strong>Robotic Arm S3</strong>
+                                <span class="badge" style="background: #fff3cd; color: #856404;">Diagnosis
+                                    Pending</span>
+                            </div>
+                            <p style="font-size: 0.9rem; color: var(--text-muted);">Issue: Calibration drift detected
+                                during startup.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Other Sections Placeholders (Orders, etc.) -->
+            <div id="other-content" style="display: none;">
+                <div class="content-card">
+                    <h3>Orders & Supply Chain</h3>
+                    <p class="mb-20">Recent global shipments and inventory movements.</p>
+                    <div style="overflow-x: auto;">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Order ID</th>
+                                    <th>Destination</th>
+                                    <th>Items</th>
+                                    <th>Value</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>#ORD-9921</td>
+                                    <td>Berlin, Germany</td>
+                                    <td>500x Scalpels</td>
+                                    <td>$24,500</td>
+                                    <td><span class="status-badge status-shipped">In Transit</span></td>
+                                </tr>
+                                <tr>
+                                    <td>#ORD-9922</td>
+                                    <td>Tokyo, Japan</td>
+                                    <td>20x Monitor V5</td>
+                                    <td>$65,000</td>
+                                    <td><span class="status-badge status-pending">Processing</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
     <script>
-        if (localStorage.getItem('userRole') !== 'admin') {
+        // Auth Logic
+        const role = localStorage.getItem('userRole');
+        if (role !== 'admin') {
             window.location.href = 'login.html';
         }
 
-        document.querySelectorAll('#admin-menu li[data-section]').forEach(item => {
-            item.addEventListener('click', () => {
-                const sectionId = item.getAttribute('data-section');
-                switchAdminSection(sectionId);
+        const handleLogout = () => {
+            localStorage.removeItem('userRole');
+            window.location.href = 'login.html';
+        };
 
-                // Update active state in sidebar
-                document.querySelectorAll('#admin-menu li').forEach(li => li.classList.remove('active'));
+        // Navigation Logic
+        const navItems = document.querySelectorAll('.nav-item');
+        const sections = {
+            dashboard: document.getElementById('dashboard-content'),
+            products: document.getElementById('product-content'),
+            distributors: document.getElementById('distributor-content'),
+            quality: document.getElementById('quality-content'),
+            service: document.getElementById('service-content'),
+            other: document.getElementById('other-content')
+        };
+        const welcomeTitle = document.querySelector('.welcome-text h2');
+
+        navItems.forEach(item => {
+            item.addEventListener('click', () => {
+                // Remove active class
+                navItems.forEach(nav => nav.classList.remove('active'));
                 item.classList.add('active');
+
+                const target = item.getAttribute('data-target');
+
+                // Hide all sections
+                Object.values(sections).forEach(el => {
+                    if (el) el.style.display = 'none';
+                });
+
+                // Show target section & Update Title
+                if (target === 'dashboard') {
+                    if (sections.dashboard) sections.dashboard.style.display = 'block';
+                    welcomeTitle.textContent = 'Welcome back, Admin';
+                } else if (target === 'products') {
+                    if (sections.products) sections.products.style.display = 'block';
+                    welcomeTitle.textContent = 'Product Management';
+                } else if (target === 'distributors') {
+                    if (sections.distributors) sections.distributors.style.display = 'block';
+                    welcomeTitle.textContent = 'Distributor Network';
+                } else if (target === 'quality') {
+                    if (sections.quality) sections.quality.style.display = 'block';
+                    welcomeTitle.textContent = 'Quality & Compliance';
+                } else if (target === 'service') {
+                    if (sections.service) sections.service.style.display = 'block';
+                    welcomeTitle.textContent = 'Service & Complaints';
+                } else {
+                    // Fallback for Orders or others
+                    if (sections.other) {
+                        sections.other.style.display = 'block';
+                        sections.other.querySelector('h3').textContent = item.innerText;
+                        welcomeTitle.textContent = item.innerText;
+                    }
+                }
             });
         });
-
-        function switchAdminSection(sectionId) {
-            // Hide all sections
-            document.querySelectorAll('.content-section').forEach(section => {
-                section.style.display = 'none';
-            });
-
-            // Show target section
-            const target = document.getElementById(`section-${sectionId}`);
-            if (target) {
-                target.style.display = 'block';
-                // Trigger scroll reveal for new content if needed
-                if (window.reveal) window.reveal();
-            }
-        }
     </script>
 </body>
 
