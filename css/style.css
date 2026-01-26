@@ -357,6 +357,10 @@ nav {
     border: none;
 }
 
+.btn:active {
+    transform: scale(0.98);
+}
+
 .btn-primary {
     background-color: var(--primary-color);
     color: white;
