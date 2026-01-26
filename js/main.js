@@ -96,8 +96,8 @@ const injectLayout = () => {
                         <li class="mobile-only">
                             <div class="dropdown" style="width: 100%; margin: 10px 0;">
                                 <button class="dropdown-toggle" style="width: 100%; justify-content: center;">
-                                    <i class="fas fa-layer-group"></i>
-                                    <span>User Type</span>
+                                    <i class="fas fa-user-circle"></i>
+                                    <span>Profile</span>
                                     <i class="fas fa-chevron-down" style="font-size: 0.8rem;"></i>
                                 </button>
                                 <div class="dropdown-menu" style="position: static; width: 100%; border: none; box-shadow: none; background: var(--section-bg);">
@@ -114,14 +114,14 @@ const injectLayout = () => {
                             </div>
                         </li>
 
-                        <li class="mobile-only">${!isLoggedIn ? `<a href="login.html" onclick="toggleMobileMenu()">Distributor Login</a>` : `<a href="#" onclick="handleLogout(); toggleMobileMenu();">Logout</a>`}</li>
+                        </li>
                     </ul>
 
                     <div class="header-actions">
                         <div class="dropdown desktop-only">
                             <button class="dropdown-toggle">
-                                <i class="fas fa-layer-group"></i>
-                                <span>User Type</span>
+                                <i class="fas fa-user-circle"></i>
+                                <span>Profile</span>
                                 <i class="fas fa-chevron-down" style="font-size: 0.8rem;"></i>
                             </button>
                             <div class="dropdown-menu">
@@ -144,12 +144,6 @@ const injectLayout = () => {
                         <button class="mobile-menu-toggle" onclick="toggleMobileMenu()" aria-label="Toggle Menu">
                             <i class="fas fa-bars"></i>
                         </button>
-                        
-                        ${!isLoggedIn ? `
-                            <a href="login.html" class="btn btn-primary desktop-only" id="distributor-login-btn">Distributor Login</a>
-                        ` : `
-                            <button onclick="handleLogout()" class="btn btn-outline desktop-only">Logout</button>
-                        `}
                     </div>
                 </nav>
             </div>
