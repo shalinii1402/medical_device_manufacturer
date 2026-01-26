@@ -100,7 +100,7 @@ const injectLayout = () => {
                                     <span>User Type</span>
                                     <i class="fas fa-chevron-down" style="font-size: 0.8rem;"></i>
                                 </button>
-                                <div class="dropdown-menu" style="position: static; width: 100%; display: block; border: none; box-shadow: none; background: var(--section-bg);">
+                                <div class="dropdown-menu" style="position: static; width: 100%; border: none; box-shadow: none; background: var(--section-bg);">
                                     <div class="dropdown-item ${role === 'distributor' ? 'active' : ''}" onclick="window.location.href='distributor-dashboard.html'; toggleMobileMenu();">
                                         <i class="fas fa-handshake"></i> Distributor
                                     </div>
@@ -238,9 +238,34 @@ const updateNavigationState = () => {
     }
 };
 
+// Dropdown Logic
+const initDropdowns = () => {
+    document.addEventListener('click', (e) => {
+        const isDropdownClick = e.target.closest('.dropdown');
+        const isToggleClick = e.target.closest('.dropdown-toggle');
+
+        if (isToggleClick) {
+            e.preventDefault();
+            const dropdown = isToggleClick.closest('.dropdown');
+            // Close other active dropdowns
+            document.querySelectorAll('.dropdown.active').forEach(d => {
+                if (d !== dropdown) d.classList.remove('active');
+            });
+            // Toggle current
+            dropdown.classList.toggle('active');
+        } else if (!isDropdownClick) {
+            // Click outside
+            document.querySelectorAll('.dropdown.active').forEach(d => {
+                d.classList.remove('active');
+            });
+        }
+    });
+};
+
 // Initialize everything
 document.addEventListener('DOMContentLoaded', () => {
     injectLayout();
+    initDropdowns();
     initTheme();
     window.addEventListener('scroll', reveal);
     reveal();

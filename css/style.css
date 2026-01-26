@@ -198,7 +198,7 @@ nav {
     border: 1px solid var(--border-color);
 }
 
-.dropdown:hover .dropdown-menu {
+.dropdown.active .dropdown-menu {
     display: block;
 }
 
