@@ -162,8 +162,9 @@ const injectLayout = () => {
                         <p class="mt-20">Pioneering excellence in medical device manufacturing since 1998.</p>
                         <div class="social-links mt-20">
                             <a href="#"><i class="fab fa-linkedin"></i></a>
-                            <a href="#"><i class="fab fa-twitter"></i></a>
                             <a href="#"><i class="fab fa-facebook"></i></a>
+                            <a href="#"><i class="fab fa-instagram"></i></a>
+                            <a href="#"><i class="fab fa-pinterest"></i></a>
                         </div>
                     </div>
                     <div class="footer-column">

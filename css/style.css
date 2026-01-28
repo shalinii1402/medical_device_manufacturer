@@ -82,12 +82,65 @@ img {
 }
 
 .section {
-    padding: 80px 0;
+    padding: 60px 0;
 }
 
 .section-title {
     text-align: center;
-    margin-bottom: 50px;
+    margin-bottom: 30px;
+}
+
+/* Header */
+header {
+    background-color: var(--bg-color);
+    border-bottom: 1px solid var(--border-color);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    padding: 10px 0;
+    transition: var(--transition);
+}
+
+/* ... existing code ... */
+
+@media (max-width: 768px) {
+    .section {
+        padding: 40px 0;
+    }
+
+    .hero h1 {
+        font-size: 2.5rem;
+    }
+}
+
+/* Hero Section */
+.hero {
+    height: 80vh;
+    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('../assets/images/hero-bg.png');
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: white;
+}
+
+/* ... existing code ... */
+
+.card {
+    background-color: var(--card-bg);
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: var(--shadow);
+    transition: var(--transition);
+    border: 1px solid var(--border-color);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 25px;
+    height: 100%;
 }
 
 .section-title h2 {
@@ -110,20 +163,13 @@ img {
 }
 
 /* Header */
-header {
-    background-color: var(--bg-color);
-    border-bottom: 1px solid var(--border-color);
-    position: sticky;
-    top: 0;
-    z-index: 1000;
-    padding: 15px 0;
-    transition: var(--transition);
-}
+
 
 nav {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    flex-wrap: wrap;
 }
 
 .logo {
@@ -223,105 +269,7 @@ nav {
     color: white !important;
 }
 
-@media (max-width: 991px) {
-    header {
-        height: 70px;
-        /* Fixed height for easier relative positioning */
-    }
 
-    .mobile-menu-toggle {
-        display: block;
-    }
-
-    .nav-links {
-        display: none;
-        flex-direction: column;
-        position: fixed;
-        top: 70px;
-        left: 0;
-        width: 100%;
-        height: calc(100vh - 70px);
-        background-color: var(--card-bg);
-        padding: 40px 20px;
-        gap: 25px;
-        z-index: 999;
-        overflow-y: auto;
-        border-top: 1px solid var(--border-color);
-    }
-
-    .nav-links.active {
-        display: flex;
-    }
-
-    .nav-links li {
-        width: 100%;
-        text-align: center;
-    }
-
-    .nav-links a {
-        display: block;
-        width: 100%;
-        padding: 10px 0;
-        font-size: 1.1rem;
-    }
-
-    .mobile-only {
-        display: block;
-    }
-
-    .desktop-only {
-        display: none;
-    }
-
-    .logo-icon {
-        font-size: 1.3rem;
-        /* Slightly smaller to match text */
-    }
-
-    .logo-text {
-        font-size: 1rem;
-        /* Balanced with icon */
-        letter-spacing: 0.5px;
-        white-space: nowrap;
-    }
-
-    .logo {
-        gap: 8px;
-        /* Proper spacing */
-        display: flex;
-        align-items: center;
-    }
-
-    .header-actions {
-        gap: 10px;
-        /* Tighter gap for mobile */
-    }
-
-    .dropdown {
-        width: 100%;
-        margin-top: 10px;
-    }
-
-    .dropdown-toggle {
-        width: 100%;
-        justify-content: center;
-    }
-
-    .dropdown-menu {
-        position: static;
-        width: 100%;
-        box-shadow: none;
-        border: none;
-        background-color: var(--section-bg);
-        margin-top: 0;
-        display: block;
-        /* Always show options in mobile nav */
-    }
-
-    .dropdown-item {
-        justify-content: center;
-    }
-}
 
 .nav-links {
     display: flex;
@@ -420,6 +368,40 @@ footer {
     padding-left: 5px;
 }
 
+.social-links {
+    display: flex;
+    gap: 15px;
+}
+
+.social-links a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    background-color: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 50%;
+    color: var(--text-muted);
+    transition: var(--transition);
+    font-size: 1.1rem;
+    text-decoration: none;
+    /* Ensure no underline */
+}
+
+/* Ensure icons are centered and sized correctly */
+.social-links a i {
+    line-height: 1;
+}
+
+.social-links a:hover {
+    background-color: var(--primary-color);
+    color: white;
+    transform: translateY(-3px);
+    border-color: var(--primary-color);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+}
+
 .footer-bottom {
     border-top: 1px solid var(--border-color);
     padding-top: 20px;
@@ -454,17 +436,7 @@ footer {
 }
 
 /* Hero Section */
-.hero {
-    height: 90vh;
-    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('../assets/images/hero-bg.png');
-    background-size: cover;
-    background-position: center;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    color: white;
-}
+
 
 .hero-content {
     max-width: 800px;
@@ -482,26 +454,29 @@ footer {
 }
 
 /* Cards */
+/* Cards */
 .card-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     gap: 30px;
+    width: 100%;
 }
 
-.card {
-    background-color: var(--card-bg);
-    border-radius: 12px;
-    overflow: hidden;
-    box-shadow: var(--shadow);
-    transition: var(--transition);
-    border: 1px solid var(--border-color);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    padding: 30px;
-    height: 100%;
+/* Remove rigid media queries for columns as auto-fit handles it */
+@media (max-width: 600px) {
+    .card-grid {
+        gap: 20px;
+    }
 }
+
+/* Specific Utility: Force 4 columns on desktop for Regulatory section */
+@media (min-width: 1024px) {
+    .grid-4-col {
+        grid-template-columns: repeat(4, 1fr) !important;
+    }
+}
+
+
 
 .card:hover {
     transform: translateY(-10px);
@@ -546,6 +521,21 @@ footer {
     object-fit: cover;
     border-radius: 10px;
     margin-bottom: 20px;
+}
+
+/* Align product card buttons to bottom */
+.card-body .public-only,
+.card-body .distributor-only {
+    margin-top: auto;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.card-body .public-only p,
+.card-body .distributor-only p {
+    margin-bottom: 15px;
 }
 
 .cert-logo {
@@ -704,4 +694,159 @@ footer {
     border-radius: 50%;
     border: 4px solid var(--primary-color);
     margin-bottom: 20px;
+}
+
+/* Split Layout */
+.split-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: center;
+}
+
+.split-img-wrapper img {
+    width: 100%;
+    height: auto;
+    border-radius: 20px;
+    box-shadow: var(--shadow);
+    transition: var(--transition);
+}
+
+.split-img-wrapper img:hover {
+    transform: scale(1.02);
+}
+
+.check-list {
+    margin-top: 25px;
+}
+
+.check-list li {
+    margin-bottom: 15px;
+    display: flex;
+    align-items: flex-start;
+    gap: 15px;
+    font-size: 1.05rem;
+    color: var(--text-color);
+}
+
+.check-list i {
+    color: var(--primary-color);
+    margin-top: 5px;
+}
+
+@media (max-width: 991px) {
+    .split-layout {
+        grid-template-columns: 1fr;
+        gap: 40px;
+        text-align: center;
+    }
+
+    .check-list li {
+        justify-content: center;
+        text-align: left;
+    }
+}
+
+@media (max-width: 991px) {
+    header {
+        height: 70px;
+        /* Fixed height for easier relative positioning */
+    }
+
+    .mobile-menu-toggle {
+        display: block;
+    }
+
+    .nav-links {
+        display: none;
+        flex-direction: column;
+        position: fixed;
+        top: 70px;
+        /* Aligns right below the header */
+        left: 0;
+        width: 100%;
+        height: auto;
+        min-height: calc(100vh - 70px);
+        background-color: var(--card-bg);
+        padding: 40px 20px;
+        gap: 25px;
+        z-index: 2000;
+        /* Ensure it's above everything else */
+        overflow-y: auto;
+        border-top: 1px solid var(--border-color);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    }
+
+    .nav-links.active {
+        display: flex;
+    }
+
+    .nav-links li {
+        width: 100%;
+        text-align: center;
+    }
+
+    .nav-links a {
+        display: block;
+        width: 100%;
+        padding: 10px 0;
+        font-size: 1.1rem;
+    }
+
+    .mobile-only {
+        display: block;
+    }
+
+    .desktop-only {
+        display: none;
+    }
+
+    .logo-icon {
+        font-size: 1.3rem;
+        /* Slightly smaller to match text */
+    }
+
+    .logo-text {
+        font-size: 1rem;
+        /* Balanced with icon */
+        letter-spacing: 0.5px;
+        white-space: nowrap;
+    }
+
+    .logo {
+        gap: 8px;
+        /* Proper spacing */
+        display: flex;
+        align-items: center;
+    }
+
+    .header-actions {
+        gap: 10px;
+        /* Tighter gap for mobile */
+    }
+
+    .dropdown {
+        width: 100%;
+        margin-top: 10px;
+    }
+
+    .dropdown-toggle {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .dropdown-menu {
+        position: static;
+        width: 100%;
+        box-shadow: none;
+        border: none;
+        background-color: var(--section-bg);
+        margin-top: 0;
+        display: block;
+        /* Always show options in mobile nav */
+    }
+
+    .dropdown-item {
+        justify-content: center;
+    }
 }
