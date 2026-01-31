@@ -100,6 +100,17 @@
         .forgot-password:hover {
             text-decoration: underline;
         }
+
+        @media (max-width: 480px) {
+            .auth-container {
+                padding: 30px 20px;
+                margin: 15px;
+            }
+
+            .auth-footer {
+                font-size: 0.85rem;
+            }
+        }
     </style>
 </head>
 
@@ -136,8 +147,8 @@
         </form>
 
         <div class="auth-footer">
-            Don't have an account? <a href="signup.html" style="color: var(--primary-color); font-weight: 600;">Apply
-                for Partnership</a>
+            Don't have an account? <span style="white-space: nowrap;"><a href="signup.html"
+                    style="color: var(--primary-color); font-weight: 600;">Apply for Partnership</a></span>
         </div>
     </div>
 
