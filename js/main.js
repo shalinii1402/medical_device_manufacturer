@@ -57,7 +57,7 @@ window.handleLogout = () => {
 
 const toggleMobileMenu = () => {
     const menuToggle = document.querySelector('.mobile-menu-toggle');
-    if (getComputedStyle(menuToggle).display === 'none') return;
+    if (!menuToggle || getComputedStyle(menuToggle).display === 'none') return;
 
     const navLinks = document.querySelector('.nav-links');
     const toggleIcon = menuToggle.querySelector('i');
@@ -112,8 +112,6 @@ const injectLayout = () => {
                                     </div>
                                 </div>
                             </div>
-                        </li>
-
                         </li>
                     </ul>
 
@@ -201,8 +199,11 @@ const injectLayout = () => {
         </footer>
     `;
 
-    document.getElementById('header-placeholder').innerHTML = headerHTML;
-    document.getElementById('footer-placeholder').innerHTML = footerHTML;
+    const headerElem = document.getElementById('header-placeholder');
+    if (headerElem) headerElem.innerHTML = headerHTML;
+
+    const footerElem = document.getElementById('footer-placeholder');
+    if (footerElem) footerElem.innerHTML = footerHTML;
 
     document.getElementById('back-to-top')?.addEventListener('click', () => {
         window.scrollTo({ top: 0, behavior: 'smooth' });
