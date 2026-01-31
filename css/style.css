@@ -574,6 +574,41 @@ footer {
     .hero h1 {
         font-size: 2.5rem;
     }
+
+    .hero {
+        height: auto;
+        min-height: 85vh;
+        padding-top: 100px;
+        /* Space for sticky header */
+        padding-bottom: 60px;
+        background-attachment: scroll;
+        /* Better for mobile performance */
+    }
+
+    .hero-cta {
+        flex-direction: column;
+        width: 100%;
+        padding: 0 10px;
+        gap: 15px;
+        align-items: center;
+    }
+
+    .hero-cta .btn {
+        width: 100%;
+        max-width: 280px;
+        display: block;
+        text-align: center;
+        padding: 12px 20px;
+    }
+}
+
+/* Hero CTA Buttons Container */
+.hero-cta {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+    margin-top: 30px;
 }
 
 /* Distributor Dashboard Specific */
@@ -765,16 +800,15 @@ footer {
         /* Aligns right below the header */
         left: 0;
         width: 100%;
-        height: auto;
-        min-height: calc(100vh - 70px);
+        height: calc(100vh - 70px);
         background-color: var(--card-bg);
-        padding: 40px 20px;
-        gap: 25px;
+        padding: 20px;
         z-index: 2000;
         /* Ensure it's above everything else */
         overflow-y: auto;
         border-top: 1px solid var(--border-color);
         box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        justify-content: space-evenly;
     }
 
     .nav-links.active {
@@ -789,8 +823,8 @@ footer {
     .nav-links a {
         display: block;
         width: 100%;
-        padding: 10px 0;
-        font-size: 1.1rem;
+        padding: 5px 0;
+        font-size: 1rem;
     }
 
     .mobile-only {
@@ -827,12 +861,13 @@ footer {
 
     .dropdown {
         width: 100%;
-        margin-top: 10px;
+        margin-top: 0;
     }
 
     .dropdown-toggle {
         width: 100%;
         justify-content: center;
+        padding: 8px 15px;
     }
 
     .dropdown-menu {
@@ -840,13 +875,14 @@ footer {
         width: 100%;
         box-shadow: none;
         border: none;
-        background-color: var(--section-bg);
-        margin-top: 0;
+        background-color: transparent;
+        margin-top: 5px;
         display: block;
         /* Always show options in mobile nav */
     }
 
     .dropdown-item {
         justify-content: center;
+        padding: 8px 0;
     }
 }

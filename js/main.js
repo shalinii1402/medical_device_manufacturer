@@ -94,13 +94,13 @@ const injectLayout = () => {
                         <li><a href="contact.html" onclick="toggleMobileMenu()" class="${window.location.pathname.endsWith('contact.html') ? 'active' : ''}">Contact</a></li>
                         
                         <li class="mobile-only">
-                            <div class="dropdown" style="width: 100%; margin: 10px 0;">
+                            <div class="dropdown">
                                 <button class="dropdown-toggle" style="width: 100%; justify-content: center;">
                                     <i class="fas fa-user-circle"></i>
                                     <span>Profile</span>
                                     <i class="fas fa-chevron-down" style="font-size: 0.8rem;"></i>
                                 </button>
-                                <div class="dropdown-menu" style="position: static; width: 100%; border: none; box-shadow: none; background: var(--section-bg);">
+                                <div class="dropdown-menu">
                                     <div class="dropdown-item ${role === 'distributor' ? 'active' : ''}" onclick="window.location.href='distributor-dashboard.html'; toggleMobileMenu();">
                                         <i class="fas fa-handshake"></i> Distributor
                                     </div>
