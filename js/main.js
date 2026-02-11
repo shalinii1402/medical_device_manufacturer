@@ -193,7 +193,9 @@ const injectLayout = () => {
                 </div>
                 <div class="footer-bottom">
                     <p>&copy; 2026 Meditech Mfg. All rights reserved.</p>
-                    <button id="back-to-top" class="btn btn-outline" style="padding: 5px 15px;">↑ Top</button>
+                    <button id="back-to-top" class="back-to-top" aria-label="Back to top">
+                        <i class="fas fa-chevron-up"></i>
+                    </button>
                 </div>
             </div>
         </footer>
@@ -205,9 +207,20 @@ const injectLayout = () => {
     const footerElem = document.getElementById('footer-placeholder');
     if (footerElem) footerElem.innerHTML = footerHTML;
 
-    document.getElementById('back-to-top')?.addEventListener('click', () => {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-    });
+    const backToTopBtn = document.getElementById('back-to-top');
+    if (backToTopBtn) {
+        backToTopBtn.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+
+        window.addEventListener('scroll', () => {
+            if (window.pageYOffset > 300) {
+                backToTopBtn.classList.add('visible');
+            } else {
+                backToTopBtn.classList.remove('visible');
+            }
+        });
+    }
 };
 
 const updateNavigationState = () => {
