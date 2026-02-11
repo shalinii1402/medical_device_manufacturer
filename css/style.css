@@ -477,17 +477,23 @@ footer {
 
 /* Cards */
 /* Cards */
+/* Responsive grid adjustments */
 .card-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
     gap: 30px;
     width: 100%;
 }
 
-/* Remove rigid media queries for columns as auto-fit handles it */
-@media (max-width: 600px) {
+@media (max-width: 480px) {
     .card-grid {
+        grid-template-columns: 1fr;
         gap: 20px;
+    }
+
+    .section {
+        padding: 50px 0;
+        /* Slightly more padding for mobile clarity */
     }
 }
 
@@ -649,7 +655,11 @@ footer {
         font-size: 0.95rem;
     }
 
-
+    .cta-section {
+        margin-top: 20px;
+        position: relative;
+        z-index: 1;
+    }
 }
 
 /* Hero CTA Buttons Container */
@@ -835,7 +845,18 @@ footer {
 @media (max-width: 991px) {
     header {
         height: 70px;
-        /* Fixed height for easier relative positioning */
+        display: flex;
+        align-items: center;
+        padding: 0;
+        /* Remove padding to let flex center handle it */
+    }
+
+    header .container,
+    nav {
+        height: 100%;
+        display: flex;
+        align-items: center;
+        width: 100%;
     }
 
     .mobile-menu-toggle {
@@ -858,7 +879,8 @@ footer {
         overflow-y: auto;
         border-top: 1px solid var(--border-color);
         box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-        justify-content: space-evenly;
+        justify-content: center;
+        gap: 30px;
     }
 
     .nav-links.active {

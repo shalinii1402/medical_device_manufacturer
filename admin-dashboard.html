@@ -48,20 +48,23 @@
         .sidebar-logo {
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 12px;
             margin-bottom: 40px;
             padding: 0 10px;
+            white-space: nowrap;
         }
 
         .sidebar-logo i {
             font-size: 1.8rem;
             color: var(--primary-color);
+            flex-shrink: 0;
         }
 
-        .sidebar-logo span {
+        .sidebar-logo .logo-text {
             font-size: 1.4rem;
             font-weight: 700;
             color: var(--text-color);
+            letter-spacing: 0.5px;
         }
 
         .sidebar-menu {
@@ -94,6 +97,19 @@
         .sidebar-menu .nav-item i {
             width: 20px;
             text-align: center;
+        }
+
+        .nav-item.logout-item {
+            color: #dc3545 !important;
+            margin-top: 20px;
+            border-top: 1px solid var(--border-color);
+            padding-top: 20px;
+            border-radius: 0;
+        }
+
+        .nav-item.logout-item:hover {
+            background-color: rgba(220, 53, 69, 0.1) !important;
+            color: #dc3545 !important;
         }
 
         /* Top Bar */
@@ -257,6 +273,33 @@
             color: var(--primary-color);
         }
 
+        .sidebar-toggle {
+            display: none;
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            color: var(--text-color);
+            padding: 10px 14px;
+            border-radius: 8px;
+            cursor: pointer;
+            z-index: 1100;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+
+        .sidebar-header {
+            display: flex;
+            justify-content: flex-end;
+            margin-bottom: 20px;
+        }
+
+        .close-sidebar {
+            background: none;
+            border: none;
+            color: var(--text-color);
+            font-size: 1.2rem;
+            cursor: pointer;
+        }
+
         /* Responsive Breakpoints */
         @media (max-width: 1024px) {
             .stats-grid {
@@ -269,16 +312,43 @@
                 flex-direction: column;
             }
 
+            .sidebar-toggle {
+                display: block;
+                position: fixed;
+                top: 20px;
+                left: 20px;
+            }
+
             .admin-sidebar {
-                width: 100%;
-                height: auto;
-                position: relative;
-                border-right: none;
-                border-bottom: 1px solid var(--border-color);
+                position: fixed;
+                left: -280px;
+                top: 0;
+                width: 280px;
+                height: 100vh;
+                z-index: 2000;
+                box-shadow: 10px 0 30px rgba(0, 0, 0, 0.1);
+                transition: transform 0.3s ease;
+                display: block !important;
+            }
+
+            .admin-sidebar.active {
+                transform: translateX(280px);
             }
 
             .admin-main {
-                padding: 20px;
+                padding: 80px 20px 20px;
+            }
+
+            .dashboard-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 20px;
+            }
+
+            .action-buttons {
+                width: 100%;
+                justify-content: flex-start;
+                flex-wrap: wrap;
             }
 
             .stats-grid {
@@ -290,9 +360,18 @@
 
 <body>
 
+    <button class="sidebar-toggle" onclick="toggleSidebar()" aria-label="Toggle Sidebar">
+        <i class="fas fa-bars"></i>
+    </button>
+
     <div class="admin-layout">
         <!-- Sidebar -->
         <aside class="admin-sidebar">
+            <div class="sidebar-header mobile-only">
+                <button class="close-sidebar" onclick="toggleSidebar()" aria-label="Close Sidebar">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
             <div class="sidebar-logo">
                 <i class="fas fa-briefcase-medical logo-icon"></i>
                 <span class="logo-text" style="font-size: 1.4rem;">MEDITECH MFG</span>
@@ -322,6 +401,11 @@
                     <div class="nav-item" data-target="service"><i class="fas fa-headset"></i> Service & Complaints
                     </div>
                 </li>
+                <li>
+                    <div class="nav-item logout-item" onclick="handleLogout()"><i class="fas fa-sign-out-alt"></i>
+                        Logout
+                    </div>
+                </li>
             </ul>
         </aside>
 
@@ -339,8 +423,6 @@
                     </button>
                     <a href="index.html" class="btn btn-outline"><i class="fas fa-external-link-alt"></i> Back to
                         Website</a>
-                    <button onclick="handleLogout()" class="btn btn-primary"
-                        style="background-color: #dc3545; border-color: #dc3545;">Logout</button>
                 </div>
             </div>
 
@@ -902,8 +984,19 @@
         };
         const welcomeTitle = document.querySelector('.welcome-text h2');
 
+        function toggleSidebar() {
+            document.querySelector('.admin-sidebar').classList.toggle('active');
+        }
+
         navItems.forEach(item => {
             item.addEventListener('click', () => {
+                if (item.classList.contains('logout-item')) return;
+
+                // Auto-close sidebar on mobile after clicking
+                if (window.innerWidth <= 768) {
+                    toggleSidebar();
+                }
+
                 // Remove active class
                 navItems.forEach(nav => nav.classList.remove('active'));
                 item.classList.add('active');
