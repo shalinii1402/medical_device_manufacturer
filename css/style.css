@@ -485,6 +485,19 @@ footer {
     width: 100%;
 }
 
+@media (min-width: 481px) and (max-width: 991px) {
+    .card-grid {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .card-grid .card {
+        flex: 1 1 300px;
+        max-width: 450px;
+    }
+}
+
 @media (max-width: 480px) {
     .card-grid {
         grid-template-columns: 1fr;
