@@ -23,17 +23,19 @@
             display: flex;
             min-height: 100vh;
             width: 100%;
+            position: relative;
         }
 
         .admin-sidebar {
             background-color: var(--card-bg);
             border-right: 1px solid var(--border-color);
-            width: 260px;
+            width: 300px;
             height: 100vh;
             position: sticky;
             top: 0;
             flex-shrink: 0;
             overflow-y: auto;
+            overflow-x: hidden;
             padding: 20px;
             z-index: 1000;
         }
@@ -287,7 +289,7 @@
         }
 
         .sidebar-header {
-            display: flex;
+            display: none;
             justify-content: flex-end;
             margin-bottom: 20px;
         }
@@ -296,8 +298,41 @@
             background: none;
             border: none;
             color: var(--text-color);
-            font-size: 1.2rem;
+            font-size: 1.5rem;
             cursor: pointer;
+            padding: 10px;
+        }
+
+        .sidebar-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1500;
+            backdrop-filter: blur(3px);
+        }
+
+        .sidebar-overlay.active {
+            display: block;
+        }
+
+        .mobile-header {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 70px;
+            background: var(--card-bg);
+            border-bottom: 1px solid var(--border-color);
+            z-index: 1400;
+            padding: 0 15px;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: var(--shadow);
         }
 
         /* Responsive Breakpoints */
@@ -307,16 +342,17 @@
             }
         }
 
-        @media (max-width: 768px) {
-            .admin-layout {
-                flex-direction: column;
+        @media (max-width: 991px) {
+            .mobile-header {
+                display: flex;
+            }
+
+            .sidebar-header {
+                display: flex;
             }
 
             .sidebar-toggle {
                 display: block;
-                position: fixed;
-                top: 20px;
-                left: 20px;
             }
 
             .admin-sidebar {
@@ -329,6 +365,8 @@
                 box-shadow: 10px 0 30px rgba(0, 0, 0, 0.1);
                 transition: transform 0.3s ease;
                 display: block !important;
+                border: none;
+                border-radius: 0;
             }
 
             .admin-sidebar.active {
@@ -336,23 +374,29 @@
             }
 
             .admin-main {
-                padding: 80px 20px 20px;
+                padding: 100px 15px 15px;
             }
 
             .dashboard-header {
                 flex-direction: column;
                 align-items: flex-start;
-                gap: 20px;
+                gap: 15px;
             }
 
             .action-buttons {
                 width: 100%;
                 justify-content: flex-start;
                 flex-wrap: wrap;
+                gap: 8px;
             }
 
             .stats-grid {
                 grid-template-columns: 1fr;
+                gap: 15px;
+            }
+
+            .stat-card {
+                padding: 20px;
             }
         }
     </style>
@@ -360,9 +404,17 @@
 
 <body>
 
-    <button class="sidebar-toggle" onclick="toggleSidebar()" aria-label="Toggle Sidebar">
-        <i class="fas fa-bars"></i>
-    </button>
+    <div class="mobile-header">
+        <div class="sidebar-logo" style="margin-bottom: 0; padding: 0;">
+            <i class="fas fa-briefcase-medical logo-icon"></i>
+            <span class="logo-text" style="font-size: 1.2rem;">MEDITECH</span>
+        </div>
+        <button class="sidebar-toggle" onclick="toggleSidebar()" aria-label="Toggle Sidebar">
+            <i class="fas fa-bars"></i>
+        </button>
+    </div>
+
+    <div class="sidebar-overlay" onclick="toggleSidebar()"></div>
 
     <div class="admin-layout">
         <!-- Sidebar -->
@@ -986,6 +1038,7 @@
 
         function toggleSidebar() {
             document.querySelector('.admin-sidebar').classList.toggle('active');
+            document.querySelector('.sidebar-overlay').classList.toggle('active');
         }
 
         navItems.forEach(item => {

@@ -651,7 +651,8 @@ footer {
         /* Better for mobile performance */
     }
 
-    .hero-cta {
+    .hero-cta,
+    .cta-buttons {
         flex-direction: column;
         width: 100%;
         padding: 0 10px;
@@ -659,24 +660,33 @@ footer {
         align-items: center;
     }
 
-    .hero-cta .btn {
+    .hero-cta .btn,
+    .cta-buttons .btn {
         width: 100%;
-        max-width: 220px;
+        max-width: 250px;
         display: block;
         text-align: center;
-        padding: 8px 16px;
+        padding: 10px 20px;
         font-size: 0.95rem;
     }
 
     .cta-section {
-        margin-top: 20px;
+        margin-top: 80px;
+        padding: 60px 0;
         position: relative;
         z-index: 1;
     }
 }
 
-/* Hero CTA Buttons Container */
-.hero-cta {
+@media (max-width: 360px) {
+    .cta-section {
+        margin-top: 100px;
+    }
+}
+
+/* Hero & CTA Buttons Container */
+.hero-cta,
+.cta-buttons {
     display: flex;
     justify-content: center;
     gap: 20px;
@@ -876,12 +886,16 @@ footer {
         /* Remove padding to let flex center handle it */
     }
 
-    header .container,
+    header .container {
+        width: 100%;
+        padding: 0 15px;
+    }
+
     nav {
-        height: 100%;
+        width: 100%;
         display: flex;
         align-items: center;
-        width: 100%;
+        justify-content: space-between;
     }
 
     .mobile-menu-toggle {
@@ -933,12 +947,12 @@ footer {
     }
 
     .logo-icon {
-        font-size: 1.3rem;
+        font-size: 1.2rem;
         /* Slightly smaller to match text */
     }
 
     .logo-text {
-        font-size: 1rem;
+        font-size: 0.95rem;
         /* Balanced with icon */
         letter-spacing: 0.5px;
         white-space: nowrap;
@@ -952,7 +966,7 @@ footer {
     }
 
     .header-actions {
-        gap: 10px;
+        gap: 8px;
         /* Tighter gap for mobile */
     }
 
